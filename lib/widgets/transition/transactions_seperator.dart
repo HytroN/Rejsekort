@@ -11,7 +11,7 @@ class TransactionsSeperator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
+        padding: EdgeInsets.only(left: 16, top: 16, bottom: 8),
         child: Text(
           DateFormat.MMMMEEEEd('da_DK').format(date).toUpperCase(),
           style: TextStyle(fontSize: 14),

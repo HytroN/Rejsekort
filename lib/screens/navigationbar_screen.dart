@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/transactions_screen.dart';
+import 'transactions/transactions_screen.dart';
 import 'chat.dart';
 import 'dashboard.dart';
 import 'setting.dart';
@@ -29,11 +29,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
     },
     {
       'page': Setting(),
-      'title': 'Settings',
+      'title': 'Optankning',
     },
   ];
 
-  Widget buildBottomBarIcon(String text, IconData icon, int tabId) {
+  Widget buildBottomBarIcon(IconData icon, int tabId) {
     return Column(
       children: [
         IconButton(
@@ -83,11 +83,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              buildBottomBarIcon('Hjem', Icons.home, 0),
-              buildBottomBarIcon('Kort', Icons.credit_card, 1),
-              SizedBox(width: 40),
-              buildBottomBarIcon('Historik', Icons.history, 2),
-              buildBottomBarIcon('Indstillinger', Icons.settings, 3),
+              buildBottomBarIcon(Icons.home, 0),
+              buildBottomBarIcon(Icons.credit_card, 1),
+              SizedBox(width: 60),
+              buildBottomBarIcon(Icons.history, 2),
+              buildBottomBarIcon(Icons.attach_money_sharp, 3),
             ],
           ),
         ),
