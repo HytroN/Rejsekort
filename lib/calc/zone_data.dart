@@ -1,75 +1,61 @@
-final ZONES_DATAS = [
+final ZONES_DATA = [
   {
     'city': 'Høje Taastrup',
     'zone': 66,
     'city_nearby': {
-      {
-        'city_name': 'Sengeløse',
+      'Sengeløse': {
         'zone_distance': 2,
         'zone_number': 65,
       },
-      {
-        'city_name': 'Grundsølille',
+      'Grundsølille': {
         'zone_distance': 2,
         'zone_number': 75,
       },
-      {
-        'city_name': 'Hedehusene',
+      'Hedehusene': {
         'zone_distance': 2,
         'zone_number': 76,
       },
-      {
-        'city_name': 'Trekroner',
+      'Trekroner': {
         'zone_distance': 2,
         'zone_number': 76,
       },
-      {
-        'city_name': 'Karlslunde',
+      'Karlslunde': {
         'zone_distance': 2,
         'zone_number': 77,
       },
-      {
-        'city_name': 'Greve',
+      'Greve': {
         'zone_distance': 2,
         'zone_number': 67,
       },
-      {
-        'city_name': 'Ishøj',
+      'Ishøj': {
         'zone_distance': 2,
         'zone_number': 55,
       },
-      {
-        'city_name': 'Hundige',
+      'Hundige': {
         'zone_distance': 2,
         'zone_number': 55,
       },
-      {
-        'city_name': 'Taastrup',
+      'Taastrup': {
         'zone_distance': 2,
         'zone_number': 54,
       },
-      {
-        'city_name': 'Albertslund',
+      'Albertslund': {
         'zone_distance': 2,
         'zone_number': 54,
       },
-      {
-        'city_name': 'Smørum',
+      'Smørum': {
         'zone_distance': 3,
         'zone_number': 64,
       },
-      {
-        'city_name': 'Ballerup',
+      'Ballerup': {
         'zone_distance': 3,
         'zone_number': 53,
       },
-      {
-        'city_name': 'Måløv',
+      'Måløv': {
         'zone_distance': 3,
         'zone_number': 53,
       },
-      {
-        'city_name': 'Kildedal',
+      'Kildedal': {
         'zone_distance': 3,
         'zone_number': 53,
       },
