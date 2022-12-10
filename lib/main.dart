@@ -13,7 +13,10 @@ void main() {
   //   ],
   // );
   // initializeDateFormatting('da_DK', null).then((_) => runApp(const MyApp()));
-  zoneData('Høje Taastrup', 'Hedehusene');
+  var calcPrice = calculatePrice(zoneData('Høje Taastrup', 'Greve'));
+  print(calcPrice);
+  var discPrice = discountPrice(59, calcPrice);
+  print('$discPrice kr.');
 }
 
 class MyApp extends StatelessWidget {
