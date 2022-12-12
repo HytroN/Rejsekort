@@ -1,58 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 
-import 'transactions/transactions_screen.dart';
-import 'chat.dart';
-import 'dashboard.dart';
-import 'setting.dart';
+import '../../screens/numpad.dart';
+import '../../screens/transactions_list_screen.dart';
+
+import 'home_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
 
   @override
-  State<NavigationScreen> createState() => _NavigationScreenState();
+  State<NavigationScreen> createState() => _Navigation_screenstate();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> {
-  int currentTap = 0;
-  final List<Map<String, dynamic>> screens = [
+class _Navigation_screenstate extends State<NavigationScreen> {
+  final List<Map<String, dynamic>> _screens = [
     {
-      'page': DashBoard(),
-      'title': 'Dashboard',
+      'page': HomeScreen(),
+      'title': 'Hjemmeskærm',
     },
+    // {
+    //   'page': TransactionsScreen(),
+    //   'title': 'Historik',
+    // },
     {
-      'page': Chat(),
-      'title': 'Chat',
-    },
-    {
-      'page': TransactionsScreen(),
-      'title': 'Historik',
-    },
-    {
-      'page': Setting(),
+      'page': NumPad(),
       'title': 'Optankning',
     },
   ];
 
-  Widget buildBottomBarIcon(IconData icon, int tabId) {
-    return Column(
-      children: [
-        IconButton(
-          onPressed: () {
-            setState(() {
-              currentTap = tabId;
-            });
-          },
-          icon: Icon(
-            icon,
-            color: currentTap == tabId ? Colors.blue : Colors.grey,
-          ),
-        )
-      ],
-    );
-  }
+  int _selectedPageIndex = 0;
 
-  final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = DashBoard();
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,37 +45,30 @@ class _NavigationScreenState extends State<NavigationScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Theme.of(context).primaryColor,
-        title: Text(screens[currentTap]['title']),
+        title: Text(_screens[_selectedPageIndex]['title']),
         centerTitle: true,
       ),
-      body: PageStorage(
-        child: screens[currentTap]['page'],
-        bucket: bucket,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.contactless_outlined,
-          size: 40,
-        ),
-        onPressed: () {},
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 5,
-        child: Container(
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              buildBottomBarIcon(Icons.home, 0),
-              buildBottomBarIcon(Icons.credit_card, 1),
-              SizedBox(width: 60),
-              buildBottomBarIcon(Icons.history, 2),
-              buildBottomBarIcon(Icons.attach_money_sharp, 3),
-            ],
+      body: _screens[_selectedPageIndex]['page'],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedPageIndex,
+        onTap: _selectPage,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: FaIcon(FontAwesomeIcons.house),
+            label: 'Hjem',
           ),
-        ),
+          // BottomNavigationBarItem(
+          //   backgroundColor: Theme.of(context).primaryColor,
+          //   icon: FaIcon(FontAwesomeIcons.arrowsRotate),
+          //   label: 'Optank',
+          // ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: FaIcon(FontAwesomeIcons.clockRotateLeft),
+            label: 'Historik',
+          ),
+        ],
       ),
     );
   }

@@ -16,9 +16,9 @@ int zoneData(String fromStation, String toStation) {
         int zoneNumber = nearbyCityDetails['zone_number'];
         zoneDistance = nearbyCityDetails['zone_distance'];
         int zoneZipcode = nearbyCityDetails['zipcode'];
-        print('Zone number for $toStation: $zoneNumber');
-        print('Zone distance from $toStation: $zoneDistance');
-        print('Zone zipcode from $toStation: $zoneZipcode');
+        // print('Zone number for $toStation: $zoneNumber');
+        // print('Zone distance from $toStation: $zoneDistance');
+        // print('Zone zipcode from $toStation: $zoneZipcode');
       } else {
         print('This ZONE_DATA does not contain any zones with name $toStation');
       }
@@ -27,39 +27,31 @@ int zoneData(String fromStation, String toStation) {
   return zoneDistance;
 }
 
-double calculatePrice(int zone) {
+double calculatePrice(int zone, int age) {
   var totalPrice;
+  var now = DateTime.utc(1969, 7, 20, 18, 18, 04);
+  var time =
+      now.hour >= 11 && now.hour <= 13 || now.hour >= 18 && now.hour <= 20;
   for (var element in ZONE_PRICE) {
     if (element.containsKey('zone_$zone')) {
       totalPrice = element['zone_$zone'];
       break;
     }
   }
-  return totalPrice;
-}
 
-double discountPrice(int age, double originalPrice) {
-  // Calculate the discount
-  var now = DateTime.utc(1969, 7, 20, 07, 18, 04);
-  var time =
-      now.hour >= 11 && now.hour <= 13 || now.hour >= 18 && now.hour <= 20;
   var discount = 0.0;
-  if (age >= 60) {
+  if (age >= 60 && zone > 4) {
     discount = 25;
   } else if (age >= 0 && age <= 15) {
     discount = 50;
   } else if (time) {
     discount = 20;
-  } else if (time && age >= 60) {
+  } else if (time && (age >= 60 && zone > 4)) {
     discount = 45;
   } else if (time && (age >= 0 && age <= 15)) {
     discount = 70;
-  } else {
-    discount = 0;
   }
-
-  // Subtract the discount from the original price
-  double discountedPrice = originalPrice - (discount * originalPrice / 100);
+  double discountedPrice = totalPrice - (discount * totalPrice / 100);
 
   return discountedPrice;
 }

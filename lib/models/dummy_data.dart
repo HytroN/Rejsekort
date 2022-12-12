@@ -1,9 +1,9 @@
-import '../../models/transactions/transactions.dart';
+import 'transactions.dart';
 
 final USER_TRANSACTIONS = [
   Transactions(
     id: "c1",
-    category: "transport",
+    isTransport: true,
     fromStation: "Høje Taastrup",
     toStation: "København H",
     date: DateTime.utc(2022, 7, 7, 17, 00),
@@ -11,7 +11,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c2",
-    category: "transport",
+    isTransport: true,
     fromStation: "København H",
     toStation: "Høje Taastrup",
     date: DateTime.utc(2022, 7, 7, 17, 30),
@@ -19,7 +19,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c3",
-    category: "transport",
+    isTransport: true,
     fromStation: "Valby",
     toStation: "Danshøj",
     date: DateTime.utc(2022, 7, 9, 16, 56),
@@ -27,7 +27,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c4",
-    category: "transport",
+    isTransport: true,
     fromStation: "Danshøj",
     toStation: "Valby",
     date: DateTime.utc(2022, 7, 9, 17, 27),
@@ -35,7 +35,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c5",
-    category: "transport",
+    isTransport: true,
     fromStation: "Høje Taastrup",
     toStation: "København H",
     date: DateTime.utc(2022, 7, 12, 12, 22),
@@ -43,7 +43,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c6",
-    category: "transport",
+    isTransport: true,
     fromStation: "København H",
     toStation: "Høje Taastrup",
     date: DateTime.utc(2022, 7, 12, 12, 56),
@@ -51,7 +51,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c7",
-    category: "transport",
+    isTransport: true,
     fromStation: "Valby",
     toStation: "Danshøj",
     date: DateTime.utc(2022, 7, 15, 19, 10),
@@ -59,7 +59,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c8",
-    category: "transport",
+    isTransport: true,
     fromStation: "Danshøj",
     toStation: "Valby",
     date: DateTime.utc(2022, 7, 15, 19, 27),
@@ -67,7 +67,7 @@ final USER_TRANSACTIONS = [
   ),
   Transactions(
     id: "c9",
-    category: "refuel",
+    isTransport: false,
     date: DateTime.utc(2022, 7, 16, 22, 58),
     amount: 20.0,
   ),

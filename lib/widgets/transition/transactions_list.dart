@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../models/transactions/transactions.dart';
+import '../../models/transactions.dart';
 import '../../widgets/transition/transactions_seperator.dart';
 
 class TransactionList extends StatelessWidget {
@@ -13,6 +14,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupedListView<dynamic, DateTime>(
+      padding: EdgeInsets.all(20),
       elements: transactions,
       groupBy: (transactions) => DateUtils.dateOnly(transactions.date),
       groupSeparatorBuilder: (DateTime date) {
@@ -22,28 +24,21 @@ class TransactionList extends StatelessWidget {
       },
       order: GroupedListOrder.DESC,
       itemBuilder: (context, dynamic transactions) => ListTile(
-        leading: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          color: Colors.white,
-          child: Container(
-            width: 40,
-            height: 40,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Icon(
-                color: transactions.category == "transport"
-                    ? Colors.red
-                    : Colors.blue,
-                transactions.category == "transport"
-                    ? Icons.arrow_downward
-                    : Icons.arrow_upward,
-              ),
+        leading: CircleAvatar(
+          backgroundColor: Colors.blue.shade300,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: FaIcon(
+              transactions.isTransport
+                  ? FontAwesomeIcons.train
+                  : FontAwesomeIcons.arrowsRotate,
+              color: Colors.white,
+              size: 22,
             ),
           ),
         ),
         title: Text(
-          transactions.category == "transport"
+          transactions.isTransport
               ? '${transactions.fromStation} → ${transactions.toStation}'
               : "Optankning",
           style: TextStyle(
@@ -60,13 +55,12 @@ class TransactionList extends StatelessWidget {
           ),
         ),
         trailing: Text(
-          transactions.category == "transport"
+          transactions.isTransport
               ? '-${transactions.amount.toStringAsFixed(2)} kr.'
               : '${transactions.amount.toStringAsFixed(2)} kr.',
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            color:
-                transactions.category == "transport" ? Colors.red : Colors.blue,
+            color: transactions.isTransport ? Colors.red : Colors.blue,
           ),
         ),
       ),

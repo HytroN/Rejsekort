@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../calc/zone_calculator.dart';
 import 'screens/navigationbar_screen.dart';
 
 void main() {
+  // Intializer locale formating
+  // initializeDateFormatting('da_DK', null);
   // Fjerner landscape mode
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations(
-  //   [
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //   ],
-  // );
-  // initializeDateFormatting('da_DK', null).then((_) => runApp(const MyApp()));
-  var calcPrice = calculatePrice(zoneData('Høje Taastrup', 'Greve'));
-  print(calcPrice);
-  var discPrice = discountPrice(59, calcPrice);
-  print('$discPrice kr.');
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
+  runApp(const MyApp());
+  // var getZone = zoneData('Høje Taastrup', 'Greve');
+  // var calcPrice = calculatePrice(getZone, 14);
+  // print('$calcPrice kr.');
 }
 
 class MyApp extends StatelessWidget {

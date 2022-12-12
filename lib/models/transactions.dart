@@ -1,6 +1,6 @@
 class Transactions {
   final String id;
-  final String category;
+  final bool isTransport;
   final String fromStation;
   final String toStation;
   final DateTime date;
@@ -8,7 +8,7 @@ class Transactions {
 
   Transactions({
     required this.id,
-    required this.category,
+    required this.isTransport,
     this.fromStation = "none",
     this.toStation = "none",
     required this.date,
