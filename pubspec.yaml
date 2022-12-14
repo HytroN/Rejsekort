@@ -40,7 +40,7 @@ dependencies:
   carousel_slider: ^4.2.0
   font_awesome_flutter: ^10.3.0
   dots_indicator: ^2.1.0
-  persistent_bottom_nav_bar: ^5.0.2
+  im_animations: ^0.1.2
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:im_animations/im_animations.dart';
 import 'package:rejsekort/models/cards.dart';
 
 import '../models/dummy_data.dart';
@@ -42,10 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CircleAvatar(
               radius: 37,
               backgroundColor: Colors.white,
-              child: FaIcon(
-                FontAwesomeIcons.nfcSymbol,
-                size: 40,
-                color: Colors.blue.shade300,
+              child: HeartBeat(
+                beatsPerMinute: 45,
+                child: FaIcon(
+                  FontAwesomeIcons.nfcSymbol,
+                  size: 40,
+                  color: Colors.blue.shade300,
+                ),
               ),
             ),
           ),
