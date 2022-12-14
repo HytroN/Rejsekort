@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../models/transactions.dart';
+
 import '../../widgets/transition/transactions_seperator.dart';
 
 class TransactionList extends StatelessWidget {
@@ -14,7 +14,6 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupedListView<dynamic, DateTime>(
-      padding: EdgeInsets.all(20),
       elements: transactions,
       groupBy: (transactions) => DateUtils.dateOnly(transactions.date),
       groupSeparatorBuilder: (DateTime date) {

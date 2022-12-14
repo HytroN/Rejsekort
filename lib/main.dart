@@ -15,15 +15,13 @@ void main() {
       DeviceOrientation.portraitDown,
     ],
   );
-  runApp(const MyApp());
+  runApp(MyApp());
   // var getZone = zoneData('Høje Taastrup', 'Greve');
   // var calcPrice = calculatePrice(getZone, 14);
   // print('$calcPrice kr.');
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

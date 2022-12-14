@@ -4,7 +4,7 @@ import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 
 import '../../screens/numpad.dart';
-import '../../screens/transactions_list_screen.dart';
+import 'transactions_screen.dart';
 
 import 'home_screen.dart';
 
@@ -21,13 +21,13 @@ class _Navigation_screenstate extends State<NavigationScreen> {
       'page': HomeScreen(),
       'title': 'Hjemmeskærm',
     },
-    // {
-    //   'page': TransactionsScreen(),
-    //   'title': 'Historik',
-    // },
     {
       'page': NumPad(),
       'title': 'Optankning',
+    },
+    {
+      'page': TransactionsScreen(),
+      'title': 'Historik',
     },
   ];
 
@@ -43,10 +43,19 @@ class _Navigation_screenstate extends State<NavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: CircleAvatar(
+          backgroundColor: Colors.blue.shade300,
+          child: Text(
+            'AA',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        leadingWidth: 40,
         backgroundColor: Colors.white,
         foregroundColor: Theme.of(context).primaryColor,
         title: Text(_screens[_selectedPageIndex]['title']),
-        centerTitle: true,
       ),
       body: _screens[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
@@ -58,11 +67,11 @@ class _Navigation_screenstate extends State<NavigationScreen> {
             icon: FaIcon(FontAwesomeIcons.house),
             label: 'Hjem',
           ),
-          // BottomNavigationBarItem(
-          //   backgroundColor: Theme.of(context).primaryColor,
-          //   icon: FaIcon(FontAwesomeIcons.arrowsRotate),
-          //   label: 'Optank',
-          // ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: FaIcon(FontAwesomeIcons.arrowsRotate),
+            label: 'Optank',
+          ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
             icon: FaIcon(FontAwesomeIcons.clockRotateLeft),

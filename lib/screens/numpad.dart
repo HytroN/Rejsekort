@@ -35,9 +35,9 @@ class _NumPadState extends State<NumPad> {
               IconButton(
                 onPressed: deleteText,
                 icon: Icon(
-                  size: 25,
                   Icons.backspace_outlined,
                   color: Colors.black,
+                  size: 25,
                 ),
               )
             ],

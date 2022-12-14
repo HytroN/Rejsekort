@@ -1,5 +1,8 @@
+import 'package:rejsekort/models/cards.dart';
+
 import 'transactions.dart';
 
+// ignore: non_constant_identifier_names
 final USER_TRANSACTIONS = [
   Transactions(
     id: "c1",

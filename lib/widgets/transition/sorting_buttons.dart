@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SortingButtons extends StatelessWidget {
-  const SortingButtons({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Row(
