@@ -14,6 +14,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GroupedListView<dynamic, DateTime>(
+      physics: BouncingScrollPhysics(),
       elements: transactions,
       groupBy: (transactions) => DateUtils.dateOnly(transactions.date),
       groupSeparatorBuilder: (DateTime date) {

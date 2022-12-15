@@ -45,7 +45,7 @@ class _NumPadState extends State<NumPad> {
         ),
         Card(
           margin: EdgeInsets.all(10),
-          elevation: 5,
+          elevation: 2,
           child: NumericKeyboard(
             onKeyboardTap: _onKeyboardTap,
             textColor: Colors.black,
