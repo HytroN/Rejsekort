@@ -1,11 +1,11 @@
 // Generate et unik id til vores kort
 import 'dart:math';
 
-String generateId() {
+String generateId(int length) {
   var rnd = Random();
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   var result = '';
-  for (var i = 0; i < 16; i++) {
+  for (var i = 0; i < length; i++) {
     result += characters[rnd.nextInt(characters.length)];
   }
   return result;

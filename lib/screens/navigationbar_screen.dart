@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 import 'package:rejsekort/models/cards/cards.dart';
-import 'package:rejsekort/models/cards/generate_CardID.dart';
+import 'package:rejsekort/models/generate_ids.dart';
 import 'package:rejsekort/models/dummy_data.dart';
 
 import '../../screens/numpad.dart';

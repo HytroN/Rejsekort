@@ -3,7 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:im_animations/im_animations.dart';
-import 'package:rejsekort/models/cards/generate_CardID.dart';
+import 'package:rejsekort/models/generate_ids.dart';
 
 import '../models/cards/cards.dart';
 import '../models/dummy_data.dart';

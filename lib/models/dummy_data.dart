@@ -1,18 +1,18 @@
 import 'package:rejsekort/models/cards/cards.dart';
-import 'package:rejsekort/models/cards/generate_CardID.dart';
+import 'package:rejsekort/models/generate_ids.dart';
 
-import 'transactions.dart';
+import 'transactions/transactions.dart';
 
 final List<TravelCard> travelCards = [
   Rejsekort(
-    id: generateId(),
+    id: generateId(16),
     money: 255.00,
   ),
   PendlerCard(
-    id: generateId(),
+    id: generateId(16),
   ),
   SchoolCard(
-    id: generateId(),
+    id: generateId(16),
   )
 ];
 

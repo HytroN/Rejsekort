@@ -23,47 +23,52 @@ class TransactionList extends StatelessWidget {
         );
       },
       order: GroupedListOrder.DESC,
-      itemBuilder: (context, dynamic transactions) => ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.blue.shade300,
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: FaIcon(
+      itemBuilder: (context, dynamic transactions) {
+        return InkWell(
+          onTap: () => print('${transactions.id}'),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.blue.shade300,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: FaIcon(
+                  transactions.isTransport
+                      ? FontAwesomeIcons.train
+                      : FontAwesomeIcons.arrowsRotate,
+                  color: Colors.white,
+                  size: 22,
+                ),
+              ),
+            ),
+            title: Text(
               transactions.isTransport
-                  ? FontAwesomeIcons.train
-                  : FontAwesomeIcons.arrowsRotate,
-              color: Colors.white,
-              size: 22,
+                  ? '${transactions.fromStation} → ${transactions.toStation}'
+                  : "Optankning",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: Colors.grey.shade900,
+              ),
+            ),
+            subtitle: Text(
+              DateFormat.Hm().format(transactions.date),
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            trailing: Text(
+              transactions.isTransport
+                  ? '-${transactions.amount.toStringAsFixed(2)} kr.'
+                  : '${transactions.amount.toStringAsFixed(2)} kr.',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: transactions.isTransport ? Colors.red : Colors.blue,
+              ),
             ),
           ),
-        ),
-        title: Text(
-          transactions.isTransport
-              ? '${transactions.fromStation} → ${transactions.toStation}'
-              : "Optankning",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: Colors.grey.shade900,
-          ),
-        ),
-        subtitle: Text(
-          DateFormat.Hm().format(transactions.date),
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade700,
-          ),
-        ),
-        trailing: Text(
-          transactions.isTransport
-              ? '-${transactions.amount.toStringAsFixed(2)} kr.'
-              : '${transactions.amount.toStringAsFixed(2)} kr.',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            color: transactions.isTransport ? Colors.red : Colors.blue,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
