@@ -7,8 +7,8 @@ import 'package:rejsekort/models/cards/generate_CardID.dart';
 import '../widgets/numpad/numpad_widget.dart';
 
 class NumPad extends StatefulWidget {
-  // final List<TravelCard> cards;
-  // NumPad(this.cards);
+  final List<TravelCard> cards;
+  NumPad(this.cards);
   @override
   _NumPadState createState() => _NumPadState();
 }
@@ -22,22 +22,10 @@ class _NumPadState extends State<NumPad> {
     });
   }
 
-  final List<TravelCard> _travelCards = [
-    Rejsekort(
-      id: generateId(),
-      money: 255.00,
-    ),
-    PendlerCard(
-      id: generateId(),
-    ),
-    SchoolCard(
-      id: generateId(),
-    )
-  ];
-
   List<String> getIdList() {
-    return _travelCards
-        .map((card) => '${_travelCards.indexOf(card) + 1}. ${card.type}')
+    return widget.cards
+        .map((card) =>
+            '${widget.cards.indexOf(card) + 1}. ${card.type} | ${card.id}')
         .toList();
   }
 

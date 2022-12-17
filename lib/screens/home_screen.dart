@@ -9,6 +9,9 @@ import '../models/cards/cards.dart';
 import '../models/dummy_data.dart';
 
 class HomeScreen extends StatefulWidget {
+  final List<TravelCard> cards;
+  HomeScreen(this.cards);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -16,18 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _currentIndex = 0;
   final hasTransportCard = false;
-  final List<TravelCard> _travelCards = [
-    Rejsekort(
-      id: generateId(),
-      money: 255.00,
-    ),
-    PendlerCard(
-      id: generateId(),
-    ),
-    SchoolCard(
-      id: generateId(),
-    )
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
             ),
-            items: _travelCards.map(
+            items: widget.cards.map(
               (data) {
                 return Card(
                   shape: RoundedRectangleBorder(
@@ -142,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
           decorator: const DotsDecorator(
             size: Size.square(5),
           ),
-          dotsCount: _travelCards.length,
+          dotsCount: widget.cards.length,
           position: _currentIndex.toDouble(),
         ),
       ],

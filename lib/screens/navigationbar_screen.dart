@@ -5,6 +5,7 @@ import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 import 'package:rejsekort/models/cards/cards.dart';
 import 'package:rejsekort/models/cards/generate_CardID.dart';
+import 'package:rejsekort/models/dummy_data.dart';
 
 import '../../screens/numpad.dart';
 import 'transactions_screen.dart';
@@ -19,26 +20,13 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _Navigation_screenstate extends State<NavigationScreen> {
-  final List<TravelCard> _travelCards = [
-    Rejsekort(
-      id: generateId(),
-      money: 255.00,
-    ),
-    PendlerCard(
-      id: generateId(),
-    ),
-    SchoolCard(
-      id: generateId(),
-    )
-  ];
-
   final List<Map<String, dynamic>> _screens = [
     {
-      'page': HomeScreen(),
+      'page': HomeScreen(travelCards),
       'title': 'Hjemmeskærm',
     },
     {
-      'page': NumPad(),
+      'page': NumPad(travelCards),
       'title': 'Optankning',
     },
     {
@@ -60,7 +48,9 @@ class _Navigation_screenstate extends State<NavigationScreen> {
       backgroundColor: Colors.blue.shade800,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(25), topLeft: Radius.circular(25)),
+          topRight: Radius.circular(25),
+          topLeft: Radius.circular(25),
+        ),
       ),
       context: context,
       builder: (context) {
