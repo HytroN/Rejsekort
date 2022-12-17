@@ -15,19 +15,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _currentIndex = 0;
   final hasTransportCard = false;
-  final List<Rejsekort> _travelCards = [
+  final List<TravelCard> _travelCards = [
     Rejsekort(
-      id: "AW35SJSAW23SHJ6",
-      type: 'Pendlerkort',
+      id: "AW35SJSAW23SHJ64",
+      money: 255.00,
     ),
-    Rejsekort(
-      id: "HJS213SHSAW9S2H",
-      type: 'Skolekort',
+    PendlerCard(
+      id: "HJS213SHSAW9S2H4",
     ),
-    // Rejsekort(
-    //   id: "HJS213SHSAW9S2H",
-    //   type: 'Rejsekort',
-    // )
+    SchoolCard(
+      id: "HJS213SHSAW9S2H4",
+    )
   ];
 
   @override
@@ -83,12 +81,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
-                          'assets/images/rejsekort.png',
+                          data.image,
                           height: 250,
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
                       ),
+                      if (data.money != null)
+                        Positioned(
+                          bottom: 65,
+                          right: 25,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 20,
+                            ),
+                            child: Text(
+                              '${data.money.toStringAsFixed(2)} kr.',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                              softWrap: true,
+                              overflow: TextOverflow.fade,
+                            ),
+                          ),
+                        ),
                       Positioned(
                         bottom: 20,
                         right: 10,
