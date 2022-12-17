@@ -35,14 +35,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  grouped_list: ^5.1.2
-  intl: ^0.17.0
-  carousel_slider: ^4.2.0
-  font_awesome_flutter: ^10.3.0
-  dots_indicator: ^2.1.0
+  grouped_list: ^5.1.2 # Group vores transaktioner baseret på vores dato
+  intl: ^0.17.0 # Formatere vores tid
+  carousel_slider: ^4.2.0 # en carousel vi bruger til vores kort
+  font_awesome_flutter: ^10.3.0 # Lave meget federe ikoner end dem flutter tilbyder
+  dots_indicator: ^2.1.0 # dots indikator vi bruger til vores kort carousel
   im_animations: ^0.1.2
-  flutter_native_splash: ^2.2.16
-  animations: ^2.0.7
+  flutter_native_splash: ^2.2.16 # bruger vi til at lave en loading screen, når vi loader ind på appen
+  animations: ^2.0.7 # bruger vi ikke endnu
+  dropdown_button2: ^1.9.2
 
 dev_dependencies:
   flutter_test:

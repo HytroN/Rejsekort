@@ -3,8 +3,9 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:im_animations/im_animations.dart';
+import 'package:rejsekort/models/cards/generate_CardID.dart';
 
-import '../models/cards.dart';
+import '../models/cards/cards.dart';
 import '../models/dummy_data.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,14 +18,14 @@ class _HomeScreenState extends State<HomeScreen> {
   final hasTransportCard = false;
   final List<TravelCard> _travelCards = [
     Rejsekort(
-      id: "AW35SJSAW23SHJ64",
+      id: generateId(),
       money: 255.00,
     ),
     PendlerCard(
-      id: "HJS213SHSAW9S2H4",
+      id: generateId(),
     ),
     SchoolCard(
-      id: "HJS213SHSAW9S2H4",
+      id: generateId(),
     )
   ];
 
@@ -101,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                               softWrap: true,
                               overflow: TextOverflow.fade,

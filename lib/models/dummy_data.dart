@@ -1,4 +1,4 @@
-import 'package:rejsekort/models/cards.dart';
+import 'package:rejsekort/models/cards/cards.dart';
 
 import 'transactions.dart';
 
