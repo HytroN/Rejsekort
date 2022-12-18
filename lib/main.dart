@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:im_animations/main.dart';
-import 'package:rejsekort/screens/home_screen.dart';
-import 'package:rejsekort/loginpage/Homepage.dart';
+import 'package:rejsekort/loginpage/login_screen.dart';
 import '../calc/zone_calculator.dart';
 import 'screens/navigationbar_screen.dart';
 

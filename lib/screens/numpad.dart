@@ -24,16 +24,16 @@ class _NumPadState extends State<NumPad> {
   }
 
   void addToBalance(String text) {
-    if (text.isNotEmpty || text == null) {
+    if (text.isNotEmpty && selectedValue != null) {
       print('Chosen input: $selectedValue');
-      int cardId = int.parse(selectedValue?.substring(0, 1) as String);
+      int cardId = int.parse(selectedValue?.substring(0, 1) as String) - 1;
       print('Get the first letter: $cardId');
       Rejsekort rejsekort = widget.cards[cardId] as Rejsekort;
       print('Before Saldo: ${rejsekort.money}');
       rejsekort.money += double.parse(text);
       print('After Saldo: ${rejsekort.money}');
     } else {
-      print('TEXT IS EMPTY!');
+      print('TEXT OR DROPDOWN VALUE IS EMPTY!');
     }
   }
 

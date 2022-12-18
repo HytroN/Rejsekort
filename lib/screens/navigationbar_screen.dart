@@ -45,7 +45,6 @@ class _Navigation_screenstate extends State<NavigationScreen> {
 
   void _showBottomSheet(BuildContext ctx) {
     showModalBottomSheet(
-      backgroundColor: Colors.blue.shade800,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(25),

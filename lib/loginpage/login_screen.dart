@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rejsekort/models/dummy_data.dart';
 import 'package:rejsekort/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LoginScreenSteate extends State<LoginScreen> {
       future: initialfirebase(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return loginPage();
+          return LoginPage();
         }
         return const Center(
           child: CircularProgressIndicator(),
@@ -33,14 +34,14 @@ class _LoginScreenSteate extends State<LoginScreen> {
   }
 }
 
-class loginPage extends StatefulWidget {
-  const loginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<loginPage> createState() => _loginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _LoginPageState extends State<LoginPage> {
   static Future<User?> loginusingemailpassword(
       {required String email,
       required String password,
@@ -132,8 +133,8 @@ class _loginPageState extends State<loginPage> {
                     context: context);
                 print(user);
                 if (user != null) {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => HomeScreen(travelCards)));
                 }
               },
               // ignore: prefer_const_constructors
