@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               horizontal: 20,
                             ),
                             child: Text(
-                              '${data.money.toStringAsFixed(2)} kr.',
+                              '${data.money?.toStringAsFixed(2)} kr.',
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,

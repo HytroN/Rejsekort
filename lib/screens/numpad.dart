@@ -14,6 +14,7 @@ class NumPad extends StatefulWidget {
 }
 
 class _NumPadState extends State<NumPad> {
+  String? selectedValue;
   String text = '';
 
   void deleteText() {
@@ -22,14 +23,27 @@ class _NumPadState extends State<NumPad> {
     });
   }
 
-  List<String> getIdList() {
-    return widget.cards
-        .map((card) =>
-            '${widget.cards.indexOf(card) + 1}. ${card.type} | ${card.id}')
-        .toList();
+  void addToBalance(String text) {
+    if (text.isNotEmpty || text == null) {
+      print('Chosen input: $selectedValue');
+      int cardId = int.parse(selectedValue?.substring(0, 1) as String);
+      print('Get the first letter: $cardId');
+      Rejsekort rejsekort = widget.cards[cardId] as Rejsekort;
+      print('Before Saldo: ${rejsekort.money}');
+      rejsekort.money += double.parse(text);
+      print('After Saldo: ${rejsekort.money}');
+    } else {
+      print('TEXT IS EMPTY!');
+    }
   }
 
-  String? selectedValue;
+  List<String> getIdList() {
+    return widget.cards
+        .where((card) => card.money != null)
+        .map((card) =>
+            '${widget.cards.indexOf(card) + 1} ${card.type} | ${card.id}')
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +104,7 @@ class _NumPadState extends State<NumPad> {
             child: NumericKeyboard(
               onKeyboardTap: _onKeyboardTap,
               textColor: Colors.black,
-              rightButtonFn: () => print("Right button function"),
+              rightButtonFn: () => addToBalance(text),
               rightIcon: Text(
                 'Næste',
                 style: TextStyle(

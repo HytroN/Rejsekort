@@ -6,14 +6,22 @@ import 'transactions/transactions.dart';
 final List<TravelCard> travelCards = [
   Rejsekort(
     id: generateId(16),
-    money: 255.00,
+    money: 0.00,
+  ),
+  Rejsekort(
+    id: generateId(16),
+    money: 0.00,
   ),
   PendlerCard(
     id: generateId(16),
   ),
   SchoolCard(
     id: generateId(16),
-  )
+  ),
+  Rejsekort(
+    id: generateId(16),
+    money: 0.00,
+  ),
 ];
 
 // ignore: non_constant_identifier_names
