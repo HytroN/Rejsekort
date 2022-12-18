@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "993024763110",
+    "project_id": "rejsekort-22b2c",
+    "storage_bucket": "rejsekort-22b2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993024763110:android:a5b75486a3c85895990727",
+        "android_client_info": {
+          "package_name": "com.example.rejsekort"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993024763110-nfp94hv9vnmc3svodpkoioh7v5v9b18j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZxlz1OlexHehXzo_nVqKzO_Dwvoq6Uzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993024763110-nfp94hv9vnmc3svodpkoioh7v5v9b18j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
