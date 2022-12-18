@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
+import 'package:rejsekort/models/cards/cards.dart';
+import 'package:rejsekort/models/generate_ids.dart';
+import 'package:rejsekort/models/dummy_data.dart';
 
 import '../../screens/numpad.dart';
 import 'transactions_screen.dart';
@@ -19,11 +22,11 @@ class NavigationScreen extends StatefulWidget {
 class _Navigation_screenstate extends State<NavigationScreen> {
   final List<Map<String, dynamic>> _screens = [
     {
-      'page': HomeScreen(),
+      'page': HomeScreen(travelCards),
       'title': 'Hjemmeskærm',
     },
     {
-      'page': NumPad(),
+      'page': NumPad(travelCards),
       'title': 'Optankning',
     },
     {
@@ -45,7 +48,9 @@ class _Navigation_screenstate extends State<NavigationScreen> {
       backgroundColor: Colors.blue.shade800,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topRight: Radius.circular(25), topLeft: Radius.circular(25)),
+          topRight: Radius.circular(25),
+          topLeft: Radius.circular(25),
+        ),
       ),
       context: context,
       builder: (context) {

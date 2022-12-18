@@ -3,11 +3,15 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:im_animations/im_animations.dart';
+import 'package:rejsekort/models/generate_ids.dart';
 
-import '../models/cards.dart';
+import '../models/cards/cards.dart';
 import '../models/dummy_data.dart';
 
 class HomeScreen extends StatefulWidget {
+  final List<TravelCard> cards;
+  HomeScreen(this.cards);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -15,18 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _currentIndex = 0;
   final hasTransportCard = false;
-  final List<TravelCard> _travelCards = [
-    Rejsekort(
-      id: "AW35SJSAW23SHJ64",
-      money: 255.00,
-    ),
-    PendlerCard(
-      id: "HJS213SHSAW9S2H4",
-    ),
-    SchoolCard(
-      id: "HJS213SHSAW9S2H4",
-    )
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
             ),
-            items: _travelCards.map(
+            items: widget.cards.map(
               (data) {
                 return Card(
                   shape: RoundedRectangleBorder(
@@ -97,10 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               horizontal: 20,
                             ),
                             child: Text(
-                              '${data.money.toStringAsFixed(2)} kr.',
+                              '${data.money?.toStringAsFixed(2)} kr.',
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
                               softWrap: true,
                               overflow: TextOverflow.fade,
@@ -140,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
           decorator: const DotsDecorator(
             size: Size.square(5),
           ),
-          dotsCount: _travelCards.length,
+          dotsCount: widget.cards.length,
           position: _currentIndex.toDouble(),
         ),
       ],
