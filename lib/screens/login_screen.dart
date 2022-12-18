@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:rejsekort/models/dummy_data.dart';
-import 'package:rejsekort/screens/home_screen.dart';
+import 'package:rejsekort/screens/navigationbar_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -134,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                 print(user);
                 if (user != null) {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => HomeScreen(travelCards)));
+                      builder: (context) => NavigationScreen()));
                 }
               },
               // ignore: prefer_const_constructors
