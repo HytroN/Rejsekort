@@ -1,4 +1,4 @@
-import 'package:animations/animations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_file.dart';
@@ -20,6 +20,7 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _Navigation_screenstate extends State<NavigationScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Map<String, dynamic>> _screens = [
     {
       'page': HomeScreen(travelCards),
@@ -66,6 +67,25 @@ class _Navigation_screenstate extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Log ud'),
+              onTap: () => FirebaseAuth.instance.signOut(),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         scrolledUnderElevation: 5,
@@ -76,7 +96,7 @@ class _Navigation_screenstate extends State<NavigationScreen> {
             child: IconButton(
               onPressed: () => _showBottomSheet(context),
               icon: FaIcon(
-                FontAwesomeIcons.plus,
+                FontAwesomeIcons.userPlus,
                 color: Colors.blue,
               ),
             ),
@@ -85,45 +105,25 @@ class _Navigation_screenstate extends State<NavigationScreen> {
         centerTitle: true,
         leading: Padding(
           padding: const EdgeInsets.only(left: 15.0),
-          child: CircleAvatar(
-            backgroundColor: Colors.blue.shade300,
-            child: Text(
-              'AA',
-              style: TextStyle(
-                color: Colors.white,
+          child: GestureDetector(
+            child: CircleAvatar(
+              backgroundColor: Colors.blue.shade300,
+              child: Text(
+                'AA',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
+            onTap: () => _scaffoldKey.currentState?.openDrawer(),
           ),
         ),
         foregroundColor: Theme.of(context).primaryColor,
         title: Text(_screens[_selectedPageIndex]['title']),
       ),
       // Animation ved ny page
-      body: PageTransitionSwitcher(
-        transitionBuilder: (
-          Widget child,
-          Animation<double> primaryAnimation,
-          Animation<double> secondaryAnimation,
-        ) {
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: Offset.zero,
-              end: const Offset(1.5, 0.0),
-            ).animate(secondaryAnimation),
-            child: FadeTransition(
-              opacity: Tween<double>(
-                begin: 0.0,
-                end: 1.0,
-              ).animate(primaryAnimation),
-              child: child,
-            ),
-          );
-        },
-        child: Container(
-          key: ValueKey<int>(_selectedPageIndex),
-          child: _screens[_selectedPageIndex]['page'],
-        ),
-      ),
+      body: _screens[_selectedPageIndex]['page'],
+
       // body: _screens[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,

@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rejsekort/screens/login_screen.dart';
+import 'package:rejsekort/screens/auth_screen.dart';
 import '../calc/zone_calculator.dart';
 import 'screens/navigationbar_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   // Intializer locale formating
-  // initializeDateFormatting('da_DK', null);
   // Fjerner landscape mode
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -32,7 +35,15 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => const LoginScreen(),
+        '/': (ctx) => StreamBuilder(
+              builder: (ctx, userSnapshot) {
+                if (userSnapshot.hasData) {
+                  return const NavigationScreen();
+                }
+                return AuthScreen();
+              },
+              stream: FirebaseAuth.instance.authStateChanges(),
+            ),
       },
     );
   }

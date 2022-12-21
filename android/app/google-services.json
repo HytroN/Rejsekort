@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "993024763110",
-    "project_id": "rejsekort-22b2c",
-    "storage_bucket": "rejsekort-22b2c.appspot.com"
+    "project_number": "213550565342",
+    "project_id": "rejsekort-ebfce",
+    "storage_bucket": "rejsekort-ebfce.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993024763110:android:a5b75486a3c85895990727",
+        "mobilesdk_app_id": "1:213550565342:android:9d0ca3b409de0f1466ff4f",
         "android_client_info": {
           "package_name": "com.example.rejsekort"
         }
       },
       "oauth_client": [
         {
-          "client_id": "993024763110-nfp94hv9vnmc3svodpkoioh7v5v9b18j.apps.googleusercontent.com",
+          "client_id": "213550565342-482opl8ale8rtqfcvdrcqvh5ttvcka8q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBZxlz1OlexHehXzo_nVqKzO_Dwvoq6Uzo"
+          "current_key": "AIzaSyAoDBmATtf7ezH0qgoSyBVy2BmwjCneOVg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "993024763110-nfp94hv9vnmc3svodpkoioh7v5v9b18j.apps.googleusercontent.com",
+              "client_id": "213550565342-482opl8ale8rtqfcvdrcqvh5ttvcka8q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
