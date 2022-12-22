@@ -7,7 +7,8 @@ class AuthForm extends StatefulWidget {
   final void Function(
     String email,
     String password,
-    String userName,
+    String firstname,
+    String lastname,
     bool isLogin,
     BuildContext ctx,
   ) submitFn;
@@ -21,7 +22,8 @@ class _AuthFormState extends State<AuthForm> {
   var _isLogin = true;
   var _userEmail = '';
   var _userPassword = '';
-  var _userName = '';
+  var _userFirstname = '';
+  var _userLastname = '';
 
   void _trySubmit() {
     final isValid = _formKey.currentState!.validate();
@@ -32,7 +34,8 @@ class _AuthFormState extends State<AuthForm> {
       widget.submitFn(
         _userEmail.trim(),
         _userPassword.trim(),
-        _userName.trim(),
+        _userFirstname.trim(),
+        _userLastname.trim(),
         _isLogin,
         context,
       );
@@ -53,6 +56,7 @@ class _AuthFormState extends State<AuthForm> {
                   mainAxisSize: MainAxisSize
                       .min, // Tager kun så meget plads som den behøver
                   children: [
+                    !_isLogin ? Text('Opret bruger') : Text('Log Ind'),
                     TextFormField(
                       key: ValueKey('email'),
                       validator: (value) {
@@ -69,16 +73,30 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                     if (!_isLogin)
                       TextFormField(
-                        key: ValueKey('username'),
+                        key: ValueKey('firstname'),
                         validator: (value) {
                           if (value!.isEmpty || value.length < 4) {
                             return 'Please enter a username that is longer than 4 characters.';
                           }
                           return null;
                         },
-                        decoration: InputDecoration(labelText: 'Username'),
+                        decoration: InputDecoration(labelText: 'Firstname'),
                         onSaved: (value) {
-                          _userName = value as String;
+                          _userFirstname = value as String;
+                        },
+                      ),
+                    if (!_isLogin)
+                      TextFormField(
+                        key: ValueKey('lastname'),
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 4) {
+                            return 'Please enter a username that is longer than 4 characters.';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: 'Lastname'),
+                        onSaved: (value) {
+                          _userLastname = value as String;
                         },
                       ),
                     TextFormField(
