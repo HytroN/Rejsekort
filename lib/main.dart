@@ -3,21 +3,27 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rejsekort/screens/auth_screen.dart';
+import 'package:rejsekort/widgets/introduction/introduction.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../calc/zone_calculator.dart';
 import 'screens/navigationbar_screen.dart';
 
-void main() async {
+bool _seenIntroduction = false;
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // Intializer locale formating
   // Fjerner landscape mode
   WidgetsFlutterBinding.ensureInitialized();
+  _seenIntroduction = true; // Skal gemmes lokalt på en eller anden måde
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ],
   );
+
   runApp(MyApp());
   // var getZone = zoneData('Høje Taastrup', 'Greve');
   // var calcPrice = calculatePrice(getZone, 14);
@@ -25,6 +31,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  late bool _isShown;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: _seenIntroduction ? '/' : Introduction.routeName,
       routes: {
         '/': (ctx) => StreamBuilder(
               builder: (ctx, userSnapshot) {
@@ -44,6 +51,8 @@ class MyApp extends StatelessWidget {
               },
               stream: FirebaseAuth.instance.authStateChanges(),
             ),
+        Introduction.routeName: (ctx) => Introduction(),
+        // AuthScreen.routeName: (ctx) => AuthScreen(),
       },
     );
   }

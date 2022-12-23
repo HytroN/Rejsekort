@@ -45,6 +45,8 @@ dependencies:
   cloud_firestore: ^4.2.0
   firebase_core: ^2.4.0
   firebase_auth: ^4.2.1
+  introduction_screen: ^3.1.1 # Introduktion slider
+  shared_preferences: ^2.0.15 # Gemme preferences lokalt
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,10 @@ flutter:
     - assets/images/rejsekort.png
     - assets/images/pendler.png
     - assets/images/skolekort.png
+    - assets/images/rejsekortlogo.png
+    - assets/images/createaccount.png
+    - assets/images/phonesketch.png
+    - assets/images/nfcscan.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

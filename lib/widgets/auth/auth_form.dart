@@ -24,6 +24,7 @@ class _AuthFormState extends State<AuthForm> {
   var _userPassword = '';
   var _userFirstname = '';
   var _userLastname = '';
+  var _userDOB;
 
   void _trySubmit() {
     final isValid = _formKey.currentState!.validate();
@@ -45,101 +46,96 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Card(
-        margin: EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize
-                      .min, // Tager kun så meget plads som den behøver
-                  children: [
-                    !_isLogin ? Text('Opret bruger') : Text('Log Ind'),
-                    TextFormField(
-                      key: ValueKey('email'),
-                      validator: (value) {
-                        if (value!.isEmpty || !value.contains('@')) {
-                          return 'Please enter a valid email adress.';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(labelText: 'Email Adress'),
-                      onSaved: (value) {
-                        _userEmail = value as String;
-                      },
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, // Tager kun så meget plads som den behøver
+            children: [
+              TextFormField(
+                key: ValueKey('email'),
+                validator: (value) {
+                  if (value!.isEmpty || !value.contains('@')) {
+                    return 'Please enter a valid email adress.';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(labelText: 'Email Adress'),
+                onSaved: (value) {
+                  _userEmail = value as String;
+                },
+              ),
+              if (!_isLogin)
+                TextFormField(
+                  key: ValueKey('firstname'),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 4) {
+                      return 'Please enter a username that is longer than 4 characters.';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(labelText: 'Firstname'),
+                  onSaved: (value) {
+                    _userFirstname = value as String;
+                  },
+                ),
+              if (!_isLogin)
+                TextFormField(
+                  key: ValueKey('lastname'),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 4) {
+                      return 'Please enter a username that is longer than 4 characters.';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(labelText: 'Lastname'),
+                  onSaved: (value) {
+                    _userLastname = value as String;
+                  },
+                ),
+              TextFormField(
+                key: ValueKey('password'),
+                validator: (value) {
+                  if (value!.isEmpty || value.length < 8) {
+                    return 'Password must be at least 8 characters long.';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(labelText: 'Password'),
+                obscureText: false,
+                onSaved: (value) {
+                  _userPassword = value as String;
+                },
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              if (widget.isLoading) CircularProgressIndicator(),
+              if (!widget.isLoading)
+                ElevatedButton(
+                  onPressed: _trySubmit,
+                  child: Text(_isLogin ? 'Login' : 'Signup'),
+                ),
+              if (!widget.isLoading)
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: TextStyle(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    if (!_isLogin)
-                      TextFormField(
-                        key: ValueKey('firstname'),
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 4) {
-                            return 'Please enter a username that is longer than 4 characters.';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: 'Firstname'),
-                        onSaved: (value) {
-                          _userFirstname = value as String;
-                        },
-                      ),
-                    if (!_isLogin)
-                      TextFormField(
-                        key: ValueKey('lastname'),
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 4) {
-                            return 'Please enter a username that is longer than 4 characters.';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: 'Lastname'),
-                        onSaved: (value) {
-                          _userLastname = value as String;
-                        },
-                      ),
-                    TextFormField(
-                      key: ValueKey('password'),
-                      validator: (value) {
-                        if (value!.isEmpty || value.length < 8) {
-                          return 'Password must be at least 8 characters long.';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(labelText: 'Password'),
-                      obscureText: true,
-                      onSaved: (value) {
-                        _userPassword = value as String;
-                      },
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    if (widget.isLoading) CircularProgressIndicator(),
-                    if (!widget.isLoading)
-                      ElevatedButton(
-                        onPressed: _trySubmit,
-                        child: Text(_isLogin ? 'Login' : 'Signup'),
-                      ),
-                    if (!widget.isLoading)
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          textStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isLogin = !_isLogin;
-                          });
-                        },
-                        child: Text(_isLogin
-                            ? 'Create a new account'
-                            : 'Already have a user? Click here.'),
-                      )
-                  ],
-                )),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isLogin = !_isLogin;
+                    });
+                  },
+                  child: Text(_isLogin
+                      ? 'Create a new account'
+                      : 'Already have a user? Click here.'),
+                )
+            ],
           ),
         ),
       ),

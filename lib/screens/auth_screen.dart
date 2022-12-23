@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rejsekort/models/generate_ids.dart';
 import '../widgets/auth/auth_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
+  static const routeName = '/auth';
   const AuthScreen({super.key});
 
   @override
@@ -23,6 +25,7 @@ class _AuthScreenState extends State<AuthScreen> {
     BuildContext ctx,
   ) async {
     UserCredential authResult;
+
     try {
       setState(() {
         _isLoading = true;
@@ -45,6 +48,11 @@ class _AuthScreenState extends State<AuthScreen> {
           'lastname': lastname,
           'email': email,
         });
+        // await FirebaseFirestore.instance
+        //     .collection('cards')
+        //     .doc(authResult.user?.uid)
+        //     .collection('all-cards')
+        //     .doc(generateId(16));
       }
     } on FirebaseAuthException catch (err) {
       String message = 'An error occurred, please check your credentials!';
@@ -73,7 +81,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
       body: AuthForm(
         _submitAuthForm,
         _isLoading,
