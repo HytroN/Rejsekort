@@ -1,9 +1,8 @@
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rejsekort/models/cards/cards.dart';
-import 'package:rejsekort/models/generate_ids.dart';
+
+import '../models/cards/cards.dart';
+import '../models/generate_ids.dart';
 import '../widgets/numpad/numpad_widget.dart';
 
 class NumPad extends StatefulWidget {

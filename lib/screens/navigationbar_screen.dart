@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:rejsekort/models/cards/cards.dart';
 import 'package:rejsekort/models/generate_ids.dart';
 import 'package:rejsekort/models/dummy_data.dart';
+import 'package:rejsekort/widgets/navigation_screen_widgets/bottom_navigation.dart';
 
 import '../../screens/numpad.dart';
 import 'transactions_screen.dart';
@@ -125,28 +126,7 @@ class _Navigation_screenstate extends State<NavigationScreen> {
       body: _screens[_selectedPageIndex]['page'],
 
       // body: _screens[_selectedPageIndex]['page'],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: _selectedPageIndex,
-        onTap: _selectPage,
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: FaIcon(FontAwesomeIcons.house),
-            label: 'Hjem',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: FaIcon(FontAwesomeIcons.arrowsRotate),
-            label: 'Optank',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: FaIcon(FontAwesomeIcons.clockRotateLeft),
-            label: 'Historik',
-          ),
-        ],
-      ),
+      bottomNavigationBar: BottomNavigation(_selectedPageIndex, _selectPage),
     );
   }
 }

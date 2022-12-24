@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../calc/zone_calculator.dart';
 import 'screens/navigationbar_screen.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // Intializer locale formating
