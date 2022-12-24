@@ -75,8 +75,9 @@ class _IntroductionState extends State<Introduction> {
           reverse: true,
         ),
       ],
-      onDone: () =>
-          Navigator.of(context).pushReplacementNamed(AuthScreen.routeName),
+      onDone: () {
+        Navigator.of(context).pushReplacementNamed(AuthScreen.routeName);
+      },
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: true,
       skipOrBackFlex: 0,

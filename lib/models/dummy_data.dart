@@ -4,15 +4,9 @@ import 'package:rejsekort/models/generate_ids.dart';
 import 'transactions/transactions.dart';
 
 final List<TravelCard> travelCards = [
-  Rejsekort(
+  TravelCard(
     id: generateId(16),
-    money: 0.00,
-  ),
-  PendlerCard(
-    id: generateId(16),
-  ),
-  SchoolCard(
-    id: generateId(16),
+    money: 0,
   ),
 ];
 

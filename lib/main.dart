@@ -8,15 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../calc/zone_calculator.dart';
 import 'screens/navigationbar_screen.dart';
 
-bool _seenIntroduction = false;
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // Intializer locale formating
   // Fjerner landscape mode
-  WidgetsFlutterBinding.ensureInitialized();
-  _seenIntroduction = true; // Skal gemmes lokalt på en eller anden måde
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Skal gemmes lokalt på en eller anden måde
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -31,7 +29,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  late bool _isShown;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: _seenIntroduction ? '/' : Introduction.routeName,
+      initialRoute: '/',
       routes: {
         '/': (ctx) => StreamBuilder(
               builder: (ctx, userSnapshot) {

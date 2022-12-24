@@ -1,79 +1,96 @@
-abstract class TravelCard {
+class TravelCard {
   final String id;
   final String type;
   final String image;
+  double money;
 
   TravelCard({
     required this.id,
-    required this.type,
-    required this.image,
+    this.type = 'Rejsekort',
+    this.image = 'assets/images/rejsekort.png',
+    required this.money,
   });
 
-  double? get money;
-  set setMoney(double? newMoney);
-}
-
-class Rejsekort extends TravelCard {
-  double money;
-
-  Rejsekort({
-    required String id,
-    required this.money,
-  }) : super(id: id, image: 'assets/images/rejsekort.png', type: 'Rejsekort');
-
-  @override
   double? get getMoney => money;
-
-  @override
   set setMoney(double? newMoney) => money = newMoney as double;
 }
 
-class SchoolCard extends TravelCard {
-  SchoolCard({
-    required String id,
-  }) : super(id: id, image: 'assets/images/rejsekort.png', type: 'Skolekort');
+// abstract class TravelCard {
+//   final String id;
+//   final String type;
+//   final String image;
 
-  @override
-  double? get money => null;
+//   TravelCard({
+//     required this.id,
+//     required this.type,
+//     required this.image,
+//   });
 
-  @override
-  set setMoney(double? newMoney) => null;
-}
+//   double? get money;
+//   set setMoney(double? newMoney);
+// }
 
-class PendlerCard extends TravelCard {
-  PendlerCard({
-    required String id,
-  }) : super(id: id, image: 'assets/images/pendler.png', type: 'Pendlerkort');
+// class Rejsekort extends TravelCard {
+//   double money;
 
-  @override
-  double? get money => null;
+//   Rejsekort({
+//     required String id,
+//     required this.money,
+//   }) : super(id: id, image: 'assets/images/rejsekort.png', type: 'Rejsekort');
 
-  @override
-  set setMoney(double? newMoney) => null;
-}
+//   @override
+//   double? get getMoney => money;
 
-class YouthCard extends TravelCard {
-  YouthCard({
-    required String id,
-    required String image,
-  }) : super(id: id, image: image, type: 'Ungdomskort');
+//   @override
+//   set setMoney(double? newMoney) => money = newMoney as double;
+// }
 
-  @override
-  double? get money => null;
+// class SchoolCard extends TravelCard {
+//   SchoolCard({
+//     required String id,
+//   }) : super(id: id, image: 'assets/images/rejsekort.png', type: 'Skolekort');
 
-  @override
-  set setMoney(double? newMoney) => null;
-}
+//   @override
+//   double? get money => null;
 
-class ProfessionCard extends TravelCard {
-  ProfessionCard({
-    required String id,
-    required String image,
-  }) : super(id: id, image: image, type: 'Erhvervskort');
+//   @override
+//   set setMoney(double? newMoney) => null;
+// }
 
-  @override
-  double? get money => null;
+// class PendlerCard extends TravelCard {
+//   PendlerCard({
+//     required String id,
+//   }) : super(id: id, image: 'assets/images/pendler.png', type: 'Pendlerkort');
 
-  @override
-  set setMoney(double? newMoney) => null;
-}
+//   @override
+//   double? get money => null;
+
+//   @override
+//   set setMoney(double? newMoney) => null;
+// }
+
+// class YouthCard extends TravelCard {
+//   YouthCard({
+//     required String id,
+//     required String image,
+//   }) : super(id: id, image: image, type: 'Ungdomskort');
+
+//   @override
+//   double? get money => null;
+
+//   @override
+//   set setMoney(double? newMoney) => null;
+// }
+
+// class ProfessionCard extends TravelCard {
+//   ProfessionCard({
+//     required String id,
+//     required String image,
+//   }) : super(id: id, image: image, type: 'Erhvervskort');
+
+//   @override
+//   double? get money => null;
+
+//   @override
+//   set setMoney(double? newMoney) => null;
+// }

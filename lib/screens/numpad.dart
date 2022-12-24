@@ -14,36 +14,43 @@ class NumPad extends StatefulWidget {
 }
 
 class _NumPadState extends State<NumPad> {
-  String? selectedValue;
-  String text = '';
+  // String? selectedValue;
 
   void deleteText() {
     setState(() {
-      text = text.substring(0, text.length - 1);
+      _controller.text =
+          _controller.text.substring(0, _controller.text.length - 1);
     });
   }
 
   void addToBalance(String text) {
-    if (text.isNotEmpty && selectedValue != null) {
-      print('Chosen input: $selectedValue');
-      int cardId = int.parse(selectedValue?.substring(0, 1) as String) - 1;
-      print('Get the first letter: $cardId');
-      Rejsekort rejsekort = widget.cards[cardId] as Rejsekort;
-      print('Before Saldo: ${rejsekort.money}');
-      rejsekort.money += double.parse(text);
+    // if (text.isNotEmpty && selectedValue != null) {
+    if (_controller.text.isNotEmpty) {
+      // print('Chosen input: $selectedValue');
+      // int cardId = int.parse(selectedValue?.substring(0, 1) as String) - 1;
+      // print('Get the first letter: $cardId');
+      TravelCard rejsekort = widget.cards[0];
+      print('Before Saldo: ${rejsekort}');
+      _controller.text = _controller.text.replaceAll(',', '.');
+      rejsekort.money += double.parse(_controller.text);
       print('After Saldo: ${rejsekort.money}');
     } else {
-      print('TEXT OR DROPDOWN VALUE IS EMPTY!');
+      print('TEXT VALUE IS EMPTY!');
     }
   }
 
   List<String> getIdList() {
     return widget.cards
         .where((card) => card.money != null)
-        .map((card) =>
-            '${widget.cards.indexOf(card) + 1} ${card.type} | ${card.id}')
+        .map((card) => card.id)
         .toList();
   }
+
+  // Use a regular expression to check for multiple decimal points
+  final RegExp _regex = RegExp(r'^\d*\.?\d*\.\d*$');
+
+  // Use a TextEditingController to get the user's input
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,60 +58,80 @@ class _NumPadState extends State<NumPad> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(top: 10),
-          child: CustomDropdownButton2(
-            iconEnabledColor: Colors.blue.shade500,
-            buttonDecoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.blue.shade500,
+        // Container(
+        //   padding: EdgeInsets.only(top: 10),
+        //   child: CustomDropdownButton2(
+        //     iconEnabledColor: Colors.blue.shade500,
+        //     buttonDecoration: BoxDecoration(
+        //       border: Border.all(
+        //         color: Colors.blue.shade500,
+        //       ),
+        //       borderRadius: BorderRadius.circular(10),
+        //     ),
+        //     icon: FaIcon(FontAwesomeIcons.arrowDown),
+        //     dropdownWidth: 340,
+        //     buttonWidth: 340,
+        //     hint: 'Vælg kort',
+        //     dropdownItems: getIdList(),
+        //     value: selectedValue,
+        //     onChanged: (value) {
+        //       setState(
+        //         () {
+        //           selectedValue = value;
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ),
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: TextField(
+              enableInteractiveSelection: false,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                prefixIcon: Icon(
+                  Icons.add,
+                  color: Colors.transparent,
+                ),
+                suffixIcon: _controller.text.isNotEmpty
+                    ? IconButton(
+                        icon: FaIcon(
+                          FontAwesomeIcons.deleteLeft,
+                        ),
+                        onPressed: deleteText,
+                      )
+                    : null,
               ),
-              borderRadius: BorderRadius.circular(10),
+              readOnly: true,
+              controller: _controller,
+              onChanged: (value) {
+                if (_regex.hasMatch(value)) {
+                  // If the input contains multiple decimal points, show an error message
+                  print('object');
+                }
+              },
             ),
-            icon: FaIcon(FontAwesomeIcons.arrowDown),
-            dropdownWidth: 340,
-            buttonWidth: 340,
-            hint: 'Vælg kort',
-            dropdownItems: getIdList(),
-            value: selectedValue,
-            onChanged: (value) {
-              setState(
-                () {
-                  selectedValue = value;
-                },
-              );
-            },
           ),
+          // Text(
+          //   text,
+          //   style: TextStyle(
+          //     fontSize: 40,
+          //     fontWeight: FontWeight.w600,
+          //   ),
+          // ),
         ),
-        Container(
-          child: Row(
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              IconButton(
-                onPressed: deleteText,
-                icon: Icon(
-                  Icons.backspace_outlined,
-                  color: Colors.black,
-                  size: 25,
-                ),
-              )
-            ],
-          ),
-        ),
-        Container(
+        Expanded(
+          flex: 1,
           child: Card(
             margin: EdgeInsets.all(10),
             elevation: 2,
             child: NumericKeyboard(
               onKeyboardTap: _onKeyboardTap,
               textColor: Colors.black,
-              rightButtonFn: () => addToBalance(text),
+              rightButtonFn: () => addToBalance(_controller.text),
               rightIcon: Text(
                 'Næste',
                 style: TextStyle(
@@ -121,7 +148,8 @@ class _NumPadState extends State<NumPad> {
 
   _onKeyboardTap(String value) {
     setState(() {
-      text = text + value;
+      // text = text + value;
+      _controller.text += value;
     });
   }
 }
