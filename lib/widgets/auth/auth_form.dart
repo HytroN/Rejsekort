@@ -71,6 +71,7 @@ class _AuthFormState extends State<AuthForm> {
               if (!_isLogin)
                 TextFormField(
                   key: ValueKey('firstname'),
+                  textCapitalization: TextCapitalization.sentences,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 4) {
                       return 'Please enter a username that is longer than 4 characters.';
@@ -85,6 +86,7 @@ class _AuthFormState extends State<AuthForm> {
               if (!_isLogin)
                 TextFormField(
                   key: ValueKey('lastname'),
+                  textCapitalization: TextCapitalization.sentences,
                   validator: (value) {
                     if (value!.isEmpty || value.length < 4) {
                       return 'Please enter a username that is longer than 4 characters.';

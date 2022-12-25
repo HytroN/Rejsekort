@@ -1,19 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/cards/cards.dart';
-import '../models/generate_ids.dart';
 import '../widgets/numpad/numpad_widget.dart';
 
-class NumPad extends StatefulWidget {
-  final List<TravelCard> cards;
-  NumPad(this.cards);
+class NumPadScreen extends StatefulWidget {
   @override
-  _NumPadState createState() => _NumPadState();
+  _NumPadScreenState createState() => _NumPadScreenState();
 }
 
-class _NumPadState extends State<NumPad> {
+class _NumPadScreenState extends State<NumPadScreen> {
   // String? selectedValue;
+  User? currentUser = FirebaseAuth.instance.currentUser;
 
   void deleteText() {
     setState(() {
@@ -22,27 +24,35 @@ class _NumPadState extends State<NumPad> {
     });
   }
 
-  void addToBalance(String text) {
+  void addToBalance(String text) async {
     // if (text.isNotEmpty && selectedValue != null) {
     if (_controller.text.isNotEmpty) {
       // print('Chosen input: $selectedValue');
       // int cardId = int.parse(selectedValue?.substring(0, 1) as String) - 1;
       // print('Get the first letter: $cardId');
-      TravelCard rejsekort = widget.cards[0];
-      print('Before Saldo: ${rejsekort}');
-      _controller.text = _controller.text.replaceAll(',', '.');
-      rejsekort.money += double.parse(_controller.text);
-      print('After Saldo: ${rejsekort.money}');
+      // print('Before Saldo: ${rejsekort}');
+      var ref = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser?.uid)
+          .collection('cards')
+          .where(
+            'type',
+            isEqualTo: 'rejsekort',
+          )
+          .get();
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser?.uid)
+          .collection('cards')
+          .doc(ref.docs[0]['id'])
+          .update({
+        'money': FieldValue.increment(double.parse(_controller.text)),
+      });
+      // print('After Saldo: ${rejsekort.money}');
     } else {
       print('TEXT VALUE IS EMPTY!');
     }
-  }
-
-  List<String> getIdList() {
-    return widget.cards
-        .where((card) => card.money != null)
-        .map((card) => card.id)
-        .toList();
   }
 
   // Use a regular expression to check for multiple decimal points
@@ -57,35 +67,15 @@ class _NumPadState extends State<NumPad> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        // Container(
-        //   padding: EdgeInsets.only(top: 10),
-        //   child: CustomDropdownButton2(
-        //     iconEnabledColor: Colors.blue.shade500,
-        //     buttonDecoration: BoxDecoration(
-        //       border: Border.all(
-        //         color: Colors.blue.shade500,
-        //       ),
-        //       borderRadius: BorderRadius.circular(10),
-        //     ),
-        //     icon: FaIcon(FontAwesomeIcons.arrowDown),
-        //     dropdownWidth: 340,
-        //     buttonWidth: 340,
-        //     hint: 'Vælg kort',
-        //     dropdownItems: getIdList(),
-        //     value: selectedValue,
-        //     onChanged: (value) {
-        //       setState(
-        //         () {
-        //           selectedValue = value;
-        //         },
-        //       );
-        //     },
-        //   ),
-        // ),
         Expanded(
           flex: 1,
           child: Center(
             child: TextField(
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CurrencyTextInputFormatter(
+                    locale: 'da', decimalDigits: 0, symbol: 'kr.'),
+              ],
               enableInteractiveSelection: false,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
@@ -99,6 +89,7 @@ class _NumPadState extends State<NumPad> {
                     ? IconButton(
                         icon: FaIcon(
                           FontAwesomeIcons.deleteLeft,
+                          color: Colors.blue,
                         ),
                         onPressed: deleteText,
                       )

@@ -1,14 +1,17 @@
 import 'package:rejsekort/models/cards/cards.dart';
-import 'package:rejsekort/models/generate_ids.dart';
 
 import 'transactions/transactions.dart';
 
-final List<TravelCard> travelCards = [
-  TravelCard(
-    id: generateId(16),
-    money: 0,
-  ),
-];
+// final List<TravelCard> travelCards = [
+//   Rejsekort(
+//     id: generateId(16),
+//     money: 0,
+//   ),
+//   Rejsekort(
+//     id: generateId(16),
+//     money: 0,
+//   ),
+// ];
 
 // ignore: non_constant_identifier_names
 final USER_TRANSACTIONS = [

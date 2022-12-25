@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rejsekort/models/generate_ids.dart';
 import '../widgets/auth/auth_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,16 +42,33 @@ class _AuthScreenState extends State<AuthScreen> {
         await FirebaseFirestore.instance
             .collection('users')
             .doc(authResult.user?.uid)
-            .set({
-          'firstname': firstname,
-          'lastname': lastname,
-          'email': email,
+            .set(
+          {
+            'firstname': firstname,
+            'lastname': lastname,
+            'email': email,
+          },
+        );
+        DocumentReference ref = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(authResult.user?.uid)
+            .collection('cards')
+            .add({
+          'image': 'assets/images/rejsekort.png',
+          'money': 0,
+          'type': 'Rejsekort',
+          'timestamp': Timestamp.now(),
         });
-        // await FirebaseFirestore.instance
-        //     .collection('cards')
-        //     .doc(authResult.user?.uid)
-        //     .collection('all-cards')
-        //     .doc(generateId(16));
+
+        String documentId = ref.id;
+
+        await ref.set({
+          'id': documentId,
+          'image': 'assets/images/rejsekort.png',
+          'money': 0,
+          'type': 'Rejsekort',
+          'timestamp': Timestamp.now(),
+        });
       }
     } on FirebaseAuthException catch (err) {
       String message = 'An error occurred, please check your credentials!';
