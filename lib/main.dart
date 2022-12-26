@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                 if (userSnapshot.hasData) {
                   return const NavigationScreen();
                 }
-                return AuthScreen();
+                return Introduction();
               },
               stream: FirebaseAuth.instance.authStateChanges(),
             ),
