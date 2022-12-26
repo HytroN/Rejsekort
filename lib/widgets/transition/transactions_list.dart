@@ -4,16 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../models/transactions/transactions.dart';
 
 import '../../widgets/transition/transactions_seperator.dart';
 
 class TransactionList extends StatelessWidget {
   User? currentUser = FirebaseAuth.instance.currentUser;
-
-  final List<Transactions> transactions;
-
-  TransactionList(this.transactions);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +49,10 @@ class TransactionList extends StatelessWidget {
                     itemBuilder: (context, dynamic transactions) {
                       return InkWell(
                         borderRadius: BorderRadius.circular(15),
-                        onTap: () => print('${snapshot}'),
+                        onTap: () {
+                          print('${transactions.id}');
+                          Navigator.of(context).pushNamed('/transactions.id');
+                        },
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: Colors.blue.shade300,

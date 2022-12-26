@@ -3,9 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rejsekort/models/cards/cards.dart';
 
 class CardCarousel extends StatefulWidget {
+  const CardCarousel({super.key});
+
   @override
   State<CardCarousel> createState() => _CardCarouselState();
 }
@@ -26,7 +27,7 @@ class _CardCarouselState extends State<CardCarousel> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData == false) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -71,36 +72,38 @@ class _CardCarouselState extends State<CardCarousel> {
                         if (data['money'] != null)
                           Positioned(
                             bottom: 65,
-                            right: 25,
+                            right: 65,
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 vertical: 5,
                                 horizontal: 20,
                               ),
-                              child: Text(
-                                '${data['money']?.toStringAsFixed(2)} kr.',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                              child: FittedBox(
+                                child: Text(
+                                  '${data['money']?.toStringAsFixed(2)} kr.',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.fade,
                                 ),
-                                softWrap: true,
-                                overflow: TextOverflow.fade,
                               ),
                             ),
                           ),
                         Positioned(
-                          bottom: 20,
+                          bottom: 10,
                           right: 0,
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 5,
                               horizontal: 20,
                             ),
                             child: Text(
                               data.id.toUpperCase(),
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 color: Colors.grey[500],
                               ),
                               softWrap: true,

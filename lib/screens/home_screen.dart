@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rejsekort/widgets/home/card_carousel.dart';
 
-import '../models/cards/cards.dart';
-import '../models/dummy_data.dart';
-
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();

@@ -49,6 +49,8 @@ dependencies:
   shared_preferences: ^2.0.15 # Gemme preferences lokalt
   currency_text_input_formatter: ^2.1.8 # Currency added to textfield
   timelines: ^0.1.0 # Vertical stepper
+  blobs: ^2.0.0 # Blob figurer
+  nfc_manager: ^3.2.0 # Scanne med nfc
 dev_dependencies:
   flutter_test:
     sdk: flutter

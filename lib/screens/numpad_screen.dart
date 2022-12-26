@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../models/cards/cards.dart';
 import '../widgets/numpad/numpad_widget.dart';
 
 class NumPadScreen extends StatefulWidget {
@@ -47,16 +46,17 @@ class _NumPadScreenState extends State<NumPadScreen> {
           .collection('cards')
           .doc(ref.docs[0]['id'])
           .update({
-        'money': FieldValue.increment(double.parse(_controller.text)),
+        'money': FieldValue.increment(
+          int.parse(
+            _controller.text.replaceAll(',', ''),
+          ),
+        ),
       });
       // print('After Saldo: ${rejsekort.money}');
     } else {
       print('TEXT VALUE IS EMPTY!');
     }
   }
-
-  // Use a regular expression to check for multiple decimal points
-  final RegExp _regex = RegExp(r'^\d*\.?\d*\.\d*$');
 
   // Use a TextEditingController to get the user's input
   final TextEditingController _controller = TextEditingController();
@@ -97,12 +97,6 @@ class _NumPadScreenState extends State<NumPadScreen> {
               ),
               readOnly: true,
               controller: _controller,
-              onChanged: (value) {
-                if (_regex.hasMatch(value)) {
-                  // If the input contains multiple decimal points, show an error message
-                  print('object');
-                }
-              },
             ),
           ),
           // Text(
