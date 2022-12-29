@@ -54,9 +54,8 @@ class _AuthScreenState extends State<AuthScreen> {
             .doc(authResult.user?.uid)
             .collection('cards')
             .add({
-          'image': 'assets/images/rejsekort.png',
           'money': 0,
-          'type': 'Rejsekort',
+          'type': 'rejsekort',
           'timestamp': Timestamp.now(),
         });
 
@@ -64,9 +63,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
         await ref.set({
           'id': documentId,
-          'image': 'assets/images/rejsekort.png',
           'money': 0,
-          'type': 'Rejsekort',
+          'type': 'rejsekort',
           'timestamp': Timestamp.now(),
         });
       }

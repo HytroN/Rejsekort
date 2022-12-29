@@ -11,10 +11,7 @@ import 'screens/navigationbar_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // Intializer locale formating
-  // Fjerner landscape mode
-  WidgetsFlutterBinding
-      .ensureInitialized(); // Skal gemmes lokalt på en eller anden måde
+
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -23,9 +20,6 @@ void main() async {
   );
 
   runApp(MyApp());
-  // var getZone = zoneData('Høje Taastrup', 'Greve');
-  // var calcPrice = calculatePrice(getZone, 14);
-  // print('$calcPrice kr.');
 }
 
 class MyApp extends StatelessWidget {
@@ -49,7 +43,15 @@ class MyApp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
             ),
         Introduction.routeName: (ctx) => Introduction(),
-        // AuthScreen.routeName: (ctx) => AuthScreen(),
+        AuthScreen.routeName: (ctx) => StreamBuilder(
+              builder: (ctx, userSnapshot) {
+                if (userSnapshot.hasData) {
+                  return const NavigationScreen();
+                }
+                return AuthScreen();
+              },
+              stream: FirebaseAuth.instance.authStateChanges(),
+            ),
       },
     );
   }

@@ -22,6 +22,8 @@ int zoneData(String fromStation, String toStation) {
       } else {
         print('This ZONE_DATA does not contain any zones with name $toStation');
       }
+    } else {
+      print('This ZONE_DATA does not contain any zones with name $fromStation');
     }
   }
   return zoneDistance;

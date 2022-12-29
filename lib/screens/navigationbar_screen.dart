@@ -257,54 +257,55 @@ class _NavigationScreenState extends State<NavigationScreen> {
               context: context,
               builder: (context) {
                 return StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                  return AlertDialog(
-                    title: Text(
-                      'Føj et kort til kontoen',
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                        child: const Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context, 'OK');
-                          print(selectedValue);
-                          createTravelCard(selectedValue as String);
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                    content: CustomDropdownButton2(
-                      iconEnabledColor: Colors.blue.shade500,
-                      buttonDecoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.blue.shade500,
+                  builder: (BuildContext context, StateSetter setState) {
+                    return AlertDialog(
+                      title: Text(
+                        'Føj et kort til kontoen',
+                        style: TextStyle(
+                          color: Colors.blue,
                         ),
-                        borderRadius: BorderRadius.circular(10),
                       ),
-                      icon: FaIcon(FontAwesomeIcons.arrowDown),
-                      buttonWidth: double.infinity,
-                      hint: 'Vælg kort',
-                      dropdownItems: cardType,
-                      value: selectedValue,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            selectedValue = value;
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, 'OK');
+                            print(selectedValue);
+                            createTravelCard(selectedValue as String);
                           },
-                        );
-                      },
-                    ),
-                  );
-                });
+                          child: const Text('OK'),
+                        ),
+                      ],
+                      content: CustomDropdownButton2(
+                        iconEnabledColor: Colors.blue.shade500,
+                        buttonDecoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.blue.shade500,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        icon: FaIcon(FontAwesomeIcons.arrowDown),
+                        buttonWidth: double.infinity,
+                        hint: 'Vælg kort',
+                        dropdownItems: cardType,
+                        value: selectedValue,
+                        onChanged: (value) {
+                          setState(
+                            () {
+                              selectedValue = value;
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
               },
             );
           },

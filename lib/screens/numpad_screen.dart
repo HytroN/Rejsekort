@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,11 @@ class NumPadScreen extends StatefulWidget {
 class _NumPadScreenState extends State<NumPadScreen> {
   // String? selectedValue;
   User? currentUser = FirebaseAuth.instance.currentUser;
+  String? selectedValue;
+  final List<String> cardType = [
+    'Rejsekort',
+    'Erhvervskort',
+  ];
 
   void deleteText() {
     setState(() {
@@ -23,7 +29,7 @@ class _NumPadScreenState extends State<NumPadScreen> {
     });
   }
 
-  void addToBalance(String text) async {
+  void addToBalance(String text, String type) async {
     // if (text.isNotEmpty && selectedValue != null) {
     if (_controller.text.isNotEmpty) {
       // print('Chosen input: $selectedValue');
@@ -36,7 +42,7 @@ class _NumPadScreenState extends State<NumPadScreen> {
           .collection('cards')
           .where(
             'type',
-            isEqualTo: 'rejsekort',
+            isEqualTo: type,
           )
           .get();
 
@@ -48,7 +54,7 @@ class _NumPadScreenState extends State<NumPadScreen> {
           .update({
         'money': FieldValue.increment(
           int.parse(
-            _controller.text.replaceAll(',', ''),
+            _controller.text,
           ),
         ),
       });
@@ -67,6 +73,27 @@ class _NumPadScreenState extends State<NumPadScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        CustomDropdownButton2(
+          iconEnabledColor: Colors.blue.shade500,
+          buttonDecoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.blue.shade500,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          icon: FaIcon(FontAwesomeIcons.arrowDown),
+          buttonWidth: MediaQuery.of(context).size.width * 0.9,
+          hint: 'Vælg kort',
+          dropdownItems: cardType,
+          value: selectedValue,
+          onChanged: (value) {
+            setState(
+              () {
+                selectedValue = value;
+              },
+            );
+          },
+        ),
         Expanded(
           flex: 1,
           child: Center(
@@ -115,7 +142,13 @@ class _NumPadScreenState extends State<NumPadScreen> {
             child: NumericKeyboard(
               onKeyboardTap: _onKeyboardTap,
               textColor: Colors.black,
-              rightButtonFn: () => addToBalance(_controller.text),
+              rightButtonFn: () {
+                if (selectedValue != null) {
+                  addToBalance(_controller.text, selectedValue!.toLowerCase());
+                } else {
+                  print('Select a card');
+                }
+              },
               rightIcon: Text(
                 'Næste',
                 style: TextStyle(

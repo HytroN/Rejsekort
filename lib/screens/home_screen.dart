@@ -1,7 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rejsekort/calc/zone_calculator.dart';
 import 'package:rejsekort/widgets/home/card_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,30 +11,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    var getZone = zoneData('Høje Taastrup', 'Greve');
+    var calcPrice = calculatePrice(getZone, 14);
+    print('$calcPrice kr.');
     final mediaQuery = MediaQuery.of(context);
-    return Column(
-      children: [
-        Container(
-          height: (mediaQuery.size.height) * 0.2,
-          // margin: EdgeInsets.all(25),
-          child: CircleAvatar(
-            backgroundColor: Colors.blue.shade300,
-            radius: 40,
-            child: CircleAvatar(
-              radius: 37,
-              backgroundColor: Colors.grey[50],
-              child: FaIcon(
-                FontAwesomeIcons.nfcSymbol,
-                size: 40,
-                color: Colors.blue.shade300,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          child: CardCarousel(),
-        ),
-      ],
+    return Container(
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.1,
+      ),
+      child: CardCarousel(),
     );
   }
 }
