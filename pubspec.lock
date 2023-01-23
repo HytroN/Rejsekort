@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  bot_toast:
+    dependency: "direct main"
+    description:
+      name: bot_toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.3"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -127,6 +134,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.8"
+  dijkstra:
+    dependency: "direct main"
+    description:
+      name: dijkstra
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   dots_indicator:
     dependency: "direct main"
     description:

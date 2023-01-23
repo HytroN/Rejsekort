@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dijkstra/dijkstra.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../calc/zone_data.dart';
 
 // Børn i alderen 0-15 år får en besparelse på 50 pct,
@@ -5,41 +9,43 @@ import '../calc/zone_data.dart';
 // For pensionister gælder dog, at billetten skal have en
 // rejselængde på mindst 4 zoner.
 
-int zoneData(String fromStation, String toStation) {
-  var zoneDistance;
+User? currentUser = FirebaseAuth.instance.currentUser;
 
-  for (Map<String, dynamic> cityData in ZONES_DATA) {
-    if (cityData['city'] == fromStation) {
-      Map<String, dynamic> cityNearby = cityData['city_nearby'];
-      if (cityNearby.containsKey(toStation)) {
-        Map<String, dynamic> nearbyCityDetails = cityNearby[toStation];
-        int zoneNumber = nearbyCityDetails['zone_number'];
-        zoneDistance = nearbyCityDetails['zone_distance'];
-        int zoneZipcode = nearbyCityDetails['zipcode'];
-        // print('Zone number for $toStation: $zoneNumber');
-        // print('Zone distance from $toStation: $zoneDistance');
-        // print('Zone zipcode from $toStation: $zoneZipcode');
-      } else {
-        print('This ZONE_DATA does not contain any zones with name $toStation');
-      }
-    } else {
-      print('This ZONE_DATA does not contain any zones with name $fromStation');
-    }
-  }
-  return zoneDistance;
+void createTravelTransaction(int fromStation, int toStation, int age) async {
+  DocumentReference ref = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(currentUser?.uid)
+      .collection('transactions')
+      .add({
+    'fromStation': fromStation,
+    'toStation': toStation,
+    'price': calculatePrice(zoneData(fromStation, toStation), age),
+    'timestamp': Timestamp.now(),
+    'isTransport': true,
+  });
+
+  String documentId = ref.id;
+
+  await ref.set({
+    'id': documentId,
+    'fromStation': fromStation,
+    'toStation': toStation,
+    'price': calculatePrice(zoneData(fromStation, toStation), age),
+    'timestamp': Timestamp.now(),
+    'isTransport': true
+  });
+}
+
+int zoneData(int fromStation, int toStation) {
+  var distance = Dijkstra.findPathFromGraph(graph, fromStation, toStation);
+  return distance.length;
 }
 
 double calculatePrice(int zone, int age) {
-  var totalPrice;
+  var totalPrice = ZONE_PRICE[zone];
   var now = DateTime.utc(1969, 7, 20, 18, 18, 04);
   var time =
       now.hour >= 11 && now.hour <= 13 || now.hour >= 18 && now.hour <= 20;
-  for (var element in ZONE_PRICE) {
-    if (element.containsKey('zone_$zone')) {
-      totalPrice = element['zone_$zone'];
-      break;
-    }
-  }
 
   var discount = 0.0;
   if (age >= 60 && zone > 4) {
@@ -53,7 +59,7 @@ double calculatePrice(int zone, int age) {
   } else if (time && (age >= 0 && age <= 15)) {
     discount = 70;
   }
-  double discountedPrice = totalPrice - (discount * totalPrice / 100);
+  double discountedPrice = totalPrice! - (discount * totalPrice / 100);
 
   return discountedPrice;
 }

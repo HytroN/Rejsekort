@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
@@ -26,6 +27,29 @@ class _NumPadScreenState extends State<NumPadScreen> {
     setState(() {
       _controller.text =
           _controller.text.substring(0, _controller.text.length - 1);
+    });
+  }
+
+  void createRefuelTransaction(int price, String type) async {
+    DocumentReference ref = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser?.uid)
+        .collection('transactions')
+        .add({
+      'price': price,
+      'cardType': type,
+      'timestamp': Timestamp.now(),
+      'isTransport': false,
+    });
+
+    String documentId = ref.id;
+
+    await ref.set({
+      'id': documentId,
+      'price': price,
+      'cardType': type,
+      'timestamp': Timestamp.now(),
+      'isTransport': false,
     });
   }
 
@@ -58,6 +82,8 @@ class _NumPadScreenState extends State<NumPadScreen> {
           ),
         ),
       });
+      createRefuelTransaction(
+          int.parse(_controller.text), selectedValue as String);
       // print('After Saldo: ${rejsekort.money}');
     } else {
       print('TEXT VALUE IS EMPTY!');
@@ -143,10 +169,33 @@ class _NumPadScreenState extends State<NumPadScreen> {
               onKeyboardTap: _onKeyboardTap,
               textColor: Colors.black,
               rightButtonFn: () {
-                if (selectedValue != null) {
+                if (selectedValue != null && _controller.text.isNotEmpty) {
                   addToBalance(_controller.text, selectedValue!.toLowerCase());
-                } else {
-                  print('Select a card');
+                  BotToast.showSimpleNotification(
+                    title: 'God rejse',
+                    subTitle:
+                        "Du har tanket ${_controller.text} kr. på dit ${selectedValue?.toLowerCase()}",
+                    backgroundColor: Colors.green[200],
+                    hideCloseButton: true,
+                    duration: Duration(seconds: 3),
+                  );
+                } else if (selectedValue == null) {
+                  BotToast.showSimpleNotification(
+                    title: 'Manglende kort',
+                    subTitle: "Vælg et kort for at opfylde dit kort",
+                    backgroundColor: Colors.red[200],
+                    hideCloseButton: true,
+                    duration: Duration(seconds: 3),
+                  );
+                } else if (_controller.text.isEmpty) {
+                  BotToast.showSimpleNotification(
+                    title: 'Manglende beløb',
+                    subTitle:
+                        "Indtast det ønskede beløb til dit ${selectedValue?.toLowerCase()}",
+                    backgroundColor: Colors.red[200],
+                    hideCloseButton: true,
+                    duration: Duration(seconds: 3),
+                  );
                 }
               },
               rightIcon: Text(

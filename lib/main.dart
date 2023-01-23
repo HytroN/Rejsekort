@@ -1,7 +1,10 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:dijkstra/dijkstra.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rejsekort/calc/zone_data.dart';
 import 'package:rejsekort/screens/auth_screen.dart';
 import 'package:rejsekort/widgets/introduction/introduction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +22,9 @@ void main() async {
     ],
   );
 
+  // print(zoneData(8, 4));
+  // print(calculatePrice(zoneData(8, 4), 21));
+
   runApp(MyApp());
 }
 
@@ -31,6 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder: BotToastInit(),
       initialRoute: '/',
       routes: {
         '/': (ctx) => StreamBuilder(

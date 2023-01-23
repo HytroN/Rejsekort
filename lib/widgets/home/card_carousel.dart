@@ -54,64 +54,67 @@ class _CardCarouselState extends State<CardCarousel> {
               items: userDocs.map(
                 (data) {
                   cardLength = userDocs.length;
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/${data['type']}.png',
-                            height: 250,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/images/${data['type']}.png',
+                              height: 250,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        if (data['money'] != null)
+                          if (data['money'] != null)
+                            Positioned(
+                              bottom: 65,
+                              right: 65,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5,
+                                  horizontal: 20,
+                                ),
+                                child: FittedBox(
+                                  child: Text(
+                                    '${data['money']?.toStringAsFixed(2)} kr.',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    softWrap: true,
+                                    overflow: TextOverflow.fade,
+                                  ),
+                                ),
+                              ),
+                            ),
                           Positioned(
-                            bottom: 65,
-                            right: 65,
+                            bottom: 10,
+                            right: 0,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                 vertical: 5,
                                 horizontal: 20,
                               ),
-                              child: FittedBox(
-                                child: Text(
-                                  '${data['money']?.toStringAsFixed(2)} kr.',
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  softWrap: true,
-                                  overflow: TextOverflow.fade,
+                              child: Text(
+                                data.id.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[500],
                                 ),
+                                softWrap: true,
+                                overflow: TextOverflow.fade,
                               ),
                             ),
                           ),
-                        Positioned(
-                          bottom: 10,
-                          right: 0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5,
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              data.id.toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.grey[500],
-                              ),
-                              softWrap: true,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

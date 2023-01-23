@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -6,6 +9,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:rejsekort/calc/zone_calculator.dart';
+import 'package:rejsekort/calc/zone_data.dart';
 import 'package:rejsekort/widgets/navigation_screen_widgets/bottom_navigation.dart';
 
 import 'numpad_screen.dart';
@@ -25,6 +30,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
   String email = '';
   String firstname = '';
   String lastname = '';
+  Random random = new Random();
+
+  int randomKey = ZONE_NAMES_KEYS[Random().nextInt(ZONE_NAMES_KEYS.length)];
 
   void _getdata() async {
     FirebaseFirestore.instance
@@ -208,7 +216,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 5.0),
             child: IconButton(
-              onPressed: () => _showBottomSheet(context),
+              // onPressed: () => _showBottomSheet(context),
+              onPressed: () => createTravelTransaction(
+                  ZONE_NAMES_KEYS[randomKey], ZONE_NAMES_KEYS[randomKey], 21),
               icon: FaIcon(
                 FontAwesomeIcons.userPlus,
                 color: Colors.blue,
@@ -276,8 +286,15 @@ class _NavigationScreenState extends State<NavigationScreen> {
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context, 'OK');
-                            print(selectedValue);
                             createTravelCard(selectedValue as String);
+                            BotToast.showSimpleNotification(
+                              title: 'Kort tilføjet',
+                              subTitle:
+                                  "Du har tilføjet et ${selectedValue?.toLowerCase()} på din konto.",
+                              backgroundColor: Colors.green[200],
+                              hideCloseButton: true,
+                              duration: Duration(seconds: 5),
+                            );
                           },
                           child: const Text('OK'),
                         ),

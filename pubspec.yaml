@@ -51,6 +51,8 @@ dependencies:
   timelines: ^0.1.0 # Vertical stepper
   blobs: ^2.0.0 # Blob figurer
   nfc_manager: ^3.2.0 # Scanne med nfc
+  bot_toast: ^4.0.3 # Toast notification
+  dijkstra: ^0.0.3 # Djikstra
 dev_dependencies:
   flutter_test:
     sdk: flutter
