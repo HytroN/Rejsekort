@@ -10,6 +10,8 @@
 // Børn i alderen 0-15 år får en besparelse på 50 pct.,
 // mens pensionister får en besparelse på 25 pct.
 
+import 'dart:math';
+
 final ZONE_PRICE = {
   1: 12.00,
   2: 16.50,
@@ -94,6 +96,10 @@ final ZONE_NAMES_KEYS = [
   96,
   97
 ];
+
+final random = new Random();
+
+int randomKey = ZONE_NAMES_KEYS[random.nextInt(ZONE_NAMES_KEYS.length)];
 
 final ZONE_NAMES = {
   1: 'København', // København, Frederiksberg, City

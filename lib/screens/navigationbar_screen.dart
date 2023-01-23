@@ -30,9 +30,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   String email = '';
   String firstname = '';
   String lastname = '';
-  Random random = new Random();
-
-  int randomKey = ZONE_NAMES_KEYS[Random().nextInt(ZONE_NAMES_KEYS.length)];
 
   void _getdata() async {
     FirebaseFirestore.instance
